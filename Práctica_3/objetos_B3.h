@@ -105,7 +105,7 @@ class _esfera: public _rotacion {
 public:
     int num;
     _vertex3f trio;
-    _esfera(float radio, float latitud, float longitud);
+    _esfera(float radio=1.0, float latitud=10.0, float longitud=10.0);
 
 };
 
@@ -248,7 +248,7 @@ public:
 	_maza();
 	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
 protected:
-	_cubo maza;
+	_esfera maza;
 };
 
 
