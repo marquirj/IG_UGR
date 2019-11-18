@@ -616,13 +616,33 @@ void _cuerda::draw(_modo modo, float r1, float g1, float b1, float r2, float g2,
 	glPopMatrix();
 };
 _maza::_maza(){
+	vector<_vertex3f> perfil;
+	/*_vertex3f aux;
+	aux.x=0.04;aux.y=-0.4;aux.z=0.0;
+	perfil.push_back(aux);
+	aux.x=0.04;aux.y=0.4;aux.z=0.0;
+	perfil.push_back(aux);
+	maza.parametros(perfil,12,0);
+*/
 
+
+	_vertex3f aux;
+
+    for (int i=1;i<10;i++){
+		aux.x=sin(M_PI*i/10)*-1;
+		aux.y=cos(M_PI*i/10)*-1;
+		aux.z=0.0;
+		perfil.push_back(aux);
+	}
+
+    maza.parametros(perfil,10,1);
 };
 void _maza::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor){
 	glPushMatrix();
 
 	glRotatef(90.0, 0, 1, 0);
-	glScalef(0.15,0.15,0.09);
+	glScalef(0.15,0.15,0.15);
+	//glScalef(10,10,10);
 	maza.draw_solido(0.0,1.0,0.0);
 	glPopMatrix();
 };
