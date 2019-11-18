@@ -37,6 +37,8 @@ _tanque tanque;
 _base base;
 _grua grua;
 
+
+float valor=0.0;
 // _objeto_ply *ply1;
 
 
@@ -49,6 +51,9 @@ void clean_window()
 
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
+
+
+
 
 
 //**************************************************************************
@@ -185,6 +190,12 @@ switch (toupper(Tecla1)){
         case 'R':t_objeto=ROTACION;break;
         case 'A':t_objeto=ARTICULADO;break;
 		case 'G':t_objeto=GRUA;break;
+        case 'Z':
+            if(valor==0.1){
+                valor=0.1;break;
+            }else{
+                valor=1.0;break;            
+            }
 
 	}
 glutPostRedisplay();
@@ -245,6 +256,14 @@ switch (Tecla1){
 glutPostRedisplay();
 }
 
+
+void movimiento(){
+  if(valor!=0.1){
+    grua.giro_centro+=valor;
+    grua.giroMaza+=valor;
+    glutPostRedisplay();
+  }
+}
 
 
 //***************************************************************************
@@ -357,7 +376,8 @@ glutReshapeFunc(change_window_size);
 glutKeyboardFunc(normal_key);
 // asignación de la funcion llamada "tecla_Especial" al evento correspondiente
 glutSpecialFunc(special_key);
-
+//Añadir animación
+glutIdleFunc(movimiento);
 // funcion de inicialización
 initialize();
 
