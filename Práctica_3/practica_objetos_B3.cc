@@ -36,9 +36,10 @@ _rotacion rotacion;
 _tanque tanque;
 _base base;
 _grua grua;
-
-
+_esfera esfera(1,10,10);
 float valor=0.0;
+
+
 // _objeto_ply *ply1;
 
 
@@ -51,9 +52,6 @@ void clean_window()
 
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
-
-
-
 
 
 //**************************************************************************
@@ -120,7 +118,7 @@ void draw_objects()
 {
 
 switch (t_objeto){
-	case CUBO: cubo.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+	case CUBO: esfera.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
 	case PIRAMIDE: piramide.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
         case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
         case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
@@ -190,17 +188,25 @@ switch (toupper(Tecla1)){
         case 'R':t_objeto=ROTACION;break;
         case 'A':t_objeto=ARTICULADO;break;
 		case 'G':t_objeto=GRUA;break;
-        case 'Z':
+		case 'Z':
             if(valor==0.1){
                 valor=0.1;break;
             }else{
-                valor=1.0;break;            
+                valor=1.0;break;
             }
 
 	}
 glutPostRedisplay();
 }
 
+
+void movimiento(){
+  if(valor!=0.1){
+    grua.giro_centro+=valor;
+    grua.giroMaza+=valor;
+    glutPostRedisplay();
+  }
+}
 //***************************************************************************
 // Funcion l-olamada cuando se aprieta una tecla especial
 //
@@ -256,14 +262,6 @@ switch (Tecla1){
 glutPostRedisplay();
 }
 
-
-void movimiento(){
-  if(valor!=0.1){
-    grua.giro_centro+=valor;
-    grua.giroMaza+=valor;
-    glutPostRedisplay();
-  }
-}
 
 
 //***************************************************************************
