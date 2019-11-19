@@ -258,6 +258,13 @@ switch (Tecla1){
 	case GLUT_KEY_F9:grua.giroMaza+=5;break;
 	case GLUT_KEY_F10:grua.giroMaza-=5;break;break;
 
+    case GLUT_KEY_F11:grua.moverCuerda+=0.1;
+		if (grua.moverCuerda>=grua.moverCuerdaMax) grua.moverCuerda=grua.moverCuerdaMax;
+             break;
+	case GLUT_KEY_F12:grua.moverCuerda-=0.1;
+		if (grua.moverCuerda<=grua.moverCuerdaMin) grua.moverCuerda=grua.moverCuerdaMin;
+			break;break;
+
 	}
 glutPostRedisplay();
 }
