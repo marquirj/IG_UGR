@@ -610,8 +610,8 @@ _cuerda::_cuerda(){
 };
 void _cuerda::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor){
 	glPushMatrix();
-	glTranslatef(0.32,1.0,0);
-	glScalef(0.03,0.75,0.05);
+	//glTranslatef(0.32,1.0,0);
+	//glScalef(0.03,0.75,0.05);
 	cuerda.draw_solido(0.0,0.0,0.0);
 	glPopMatrix();
 };
@@ -641,7 +641,7 @@ void _maza::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, f
 	glPushMatrix();
 
 	glRotatef(90.0, 0, 1, 0);
-	glScalef(0.15,0.15,0.15);
+	glScalef(0.15,0.185,0.15);
 	//glScalef(10,10,10);
 	maza.draw_solido(0.0,1.0,0.0);
 	glPopMatrix();
@@ -651,9 +651,9 @@ _grua::_grua(){
 	moverCarro=0.1;
 	moverCarroMax=0.9;
 	moverCarroMin=0.1;
-	moverCuerda=0.15;
-	moverCuerdaMax=5.45;
-	moverCuerdaMin=0.15;
+	moverCuerda=0.0;
+	moverCuerdaMax=0.6;
+	moverCuerdaMin=0.0;
 };
 void _grua::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor){
 	//esfera(1,10,10);
@@ -683,12 +683,17 @@ void _grua::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, f
 
 	glPushMatrix();
 
+    glTranslatef(0.32,1.0,0);
+	glScalef(0.03,-abs(1.3*moverCuerda)+1,0.05);
+    glTranslatef(0,moverCuerda+(moverCuerda*(0.4*moverCuerda)),0);
 	cuerda.draw(SOLID,r1,g1,b1,r2,g2,b2,grosor);
-
+    
 	//glPopMatrix();
 	glPushMatrix();
 	glTranslatef(0.32,0.62,0);
 	glRotatef(giroMaza, 0, 1, 0);
+    glTranslatef(0,moverCuerda,0);
+
 	maza.draw(SOLID,r1,g1,b1,r2,g2,b2,grosor);
 
 	glPopMatrix();
