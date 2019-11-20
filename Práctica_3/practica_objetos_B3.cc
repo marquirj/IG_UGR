@@ -37,9 +37,13 @@ _tanque tanque;
 _base base;
 _grua grua;
 _esfera esfera(1,10,10);
-float valor=0.0;
-
-
+int valor=0;
+bool activar=false;
+float carro=0.1;
+float carroMax=0.9;
+float carroMin=0.0;
+float control =false;
+int giro=0;
 // _objeto_ply *ply1;
 
 
@@ -188,25 +192,16 @@ switch (toupper(Tecla1)){
         case 'R':t_objeto=ROTACION;break;
         case 'A':t_objeto=ARTICULADO;break;
 		case 'G':t_objeto=GRUA;break;
-		case 'Z':
-            if(valor==0.1){
-                valor=0.1;break;
-            }else{
-                valor=1.0;break;
-            }
+		case 'Z':valor=1;break;
+        case 'X':valor=0;break;
+                
 
 	}
 glutPostRedisplay();
 }
 
 
-void movimiento(){
-  if(valor!=0.1){
-    grua.giro_centro+=valor;
-    grua.giroMaza+=valor;
-    glutPostRedisplay();
-  }
-}
+
 //***************************************************************************
 // Funcion l-olamada cuando se aprieta una tecla especial
 //
@@ -269,7 +264,27 @@ switch (Tecla1){
 glutPostRedisplay();
 }
 
-
+void movimiento(){
+  if(valor!=0){
+    grua.giro_centro+=0.5;
+    grua.giroMaza+=0.1;
+    if (grua.moverCarro>grua.moverCarroMin && giro==0){
+        grua.moverCarro-=0.01;
+        glutPostRedisplay();
+    } else if(grua.moverCarro<=grua.moverCarroMin && giro==0){
+        giro=1;
+        glutPostRedisplay();
+    }else if(grua.moverCarro<grua.moverCarroMax && giro==1){
+        grua.moverCarro+=0.01;
+        glutPostRedisplay();
+    } else if(grua.moverCarro>=grua.moverCarroMin && giro==1){
+        giro=0;
+        glutPostRedisplay();
+    }
+   
+    //glutPostRedisplay();
+  }
+}
 
 //***************************************************************************
 // Funcion de incializacion
