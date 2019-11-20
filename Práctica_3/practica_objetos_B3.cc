@@ -13,7 +13,7 @@ using namespace std;
 
 // tipos
 typedef enum{CUBO, PIRAMIDE, OBJETO_PLY, ROTACION, ARTICULADO,GRUA} _tipo_objeto;
-_tipo_objeto t_objeto=CUBO;
+_tipo_objeto t_objeto=GRUA;
 _modo   modo=POINTS;
 
 // variables que definen la posicion de la camara en coordenadas polares
@@ -38,6 +38,7 @@ _base base;
 _grua grua;
 _esfera esfera(1,10,10);
 int valor=0;
+int cmp=0;
 bool activar=false;
 float carro=0.1;
 float carroMax=0.9;
@@ -122,12 +123,13 @@ void draw_objects()
 {
 
 switch (t_objeto){
+    case GRUA: grua.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
 	case CUBO: esfera.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
 	case PIRAMIDE: piramide.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
         case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
         case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
         case ARTICULADO: tanque.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
-		case GRUA: grua.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
+		
 	}
 
 }
@@ -192,8 +194,8 @@ switch (toupper(Tecla1)){
         case 'R':t_objeto=ROTACION;break;
         case 'A':t_objeto=ARTICULADO;break;
 		case 'G':t_objeto=GRUA;break;
-		case 'Z':valor=1;break;
-        case 'X':valor=0;break;
+		case 'Z':valor=0;break;
+        case 'X':valor=1;break;
                 
 
 	}
@@ -266,24 +268,44 @@ glutPostRedisplay();
 
 void movimiento(){
   if(valor!=0){
-    grua.giro_centro+=0.5;
-    grua.giroMaza+=0.1;
-    if (grua.moverCarro>grua.moverCarroMin && giro==0){
-        grua.moverCarro-=0.01;
-        glutPostRedisplay();
-    } else if(grua.moverCarro<=grua.moverCarroMin && giro==0){
-        giro=1;
-        glutPostRedisplay();
-    }else if(grua.moverCarro<grua.moverCarroMax && giro==1){
-        grua.moverCarro+=0.01;
-        glutPostRedisplay();
-    } else if(grua.moverCarro>=grua.moverCarroMin && giro==1){
-        giro=0;
-        glutPostRedisplay();
-    }
+        //if(cmp!=0){
+            grua.giro_centro+=0.0;
+             grua.giroMaza+=0.0;
+            if (grua.moverCarro>grua.moverCarroMin && giro==0){
+                  grua.moverCarro-=0.00;
+                 glutPostRedisplay();
+            } else if(grua.moverCarro<=grua.moverCarroMin && giro==0){
+                    giro=1;
+                    glutPostRedisplay();
+            }else if(grua.moverCarro<grua.moverCarroMax && giro==1){
+                     grua.moverCarro+=0.0;
+                    glutPostRedisplay();
+            } else if(grua.moverCarro>=grua.moverCarroMin && giro==1){
+                    giro=0;
+                    glutPostRedisplay();
+            }
+
+        //}
+    
    
     //glutPostRedisplay();
-  }
+  }else{
+        grua.giro_centro+=0.5;
+             grua.giroMaza+=0.1;
+            if (grua.moverCarro>grua.moverCarroMin && giro==0){
+                  grua.moverCarro-=0.01;
+                 glutPostRedisplay();
+            } else if(grua.moverCarro<=grua.moverCarroMin && giro==0){
+                    giro=1;
+                    glutPostRedisplay();
+            }else if(grua.moverCarro<grua.moverCarroMax && giro==1){
+                     grua.moverCarro+=0.01;
+                    glutPostRedisplay();
+            } else if(grua.moverCarro>=grua.moverCarroMin && giro==1){
+                    giro=0;
+                    glutPostRedisplay();
+            }
+    }
 }
 
 //***************************************************************************
@@ -386,7 +408,7 @@ glutInitWindowSize(Window_width,Window_high);
 
 // llamada para crear la ventana, indicando el titulo (no se visualiza hasta que se llama
 // al bucle de eventos)
-glutCreateWindow("PRACTICA - 3");
+glutCreateWindow("PRACTICA - 3 JMQ");
 
 // asignación de la funcion llamada "dibujar" al evento de dibujo
 glutDisplayFunc(draw);
