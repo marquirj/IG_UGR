@@ -13,7 +13,7 @@ using namespace std;
 
 // tipos
 typedef enum{CUBO, PIRAMIDE, OBJETO_PLY, ROTACION, ARTICULADO,GRUA} _tipo_objeto;
-_tipo_objeto t_objeto=GRUA;
+_tipo_objeto t_objeto=CUBO;
 _modo   modo=POINTS;
 
 // variables que definen la posicion de la camara en coordenadas polares
@@ -37,7 +37,7 @@ _tanque tanque;
 _base base;
 _grua grua;
 _esfera esfera(1,10,10);
-int valor=0;
+int valor=1;
 int cmp=0;
 bool activar=false;
 float carro=0.1;
