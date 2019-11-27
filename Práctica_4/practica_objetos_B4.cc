@@ -12,7 +12,7 @@
 using namespace std;
 
 // tipos
-typedef enum{CUBO, PIRAMIDE, OBJETO_PLY, ROTACION, ARTICULADO,GRUA} _tipo_objeto;
+typedef enum{CUBO, PIRAMIDE, OBJETO_PLY, ROTACION, ARTICULADO,GRUA, ESFERA} _tipo_objeto;
 _tipo_objeto t_objeto=CUBO;
 _modo   modo=POINTS;
 
@@ -147,7 +147,8 @@ void draw_objects()
 
 switch (t_objeto){
     case GRUA: grua.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
-	case CUBO: esfera.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+    case ESFERA: esfera.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
+	case CUBO: cubo.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
 	case PIRAMIDE: piramide.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
         case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
         case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
@@ -219,6 +220,7 @@ switch (toupper(Tecla1)){
         case 'O':t_objeto=OBJETO_PLY;break;
         case 'R':t_objeto=ROTACION;break;
         case 'A':t_objeto=ARTICULADO;break;
+       case 'E':t_objeto=ESFERA;break;
 		case 'G':t_objeto=GRUA;break;
 		case 'Z':valor=0;break;
         case 'X':valor=1;break;
@@ -409,7 +411,7 @@ aux.x=0.5;aux.y=1.2;aux.z=0.0;
 perfil2.push_back(aux);
 aux.x=0.3;aux.y=1.4;aux.z=0.0;
 perfil2.push_back(aux);
-rotacion.parametros(perfil2,6,1);
+rotacion.parametros(perfil2,6,0);
 
 
 // se llama a la inicialización de glut
