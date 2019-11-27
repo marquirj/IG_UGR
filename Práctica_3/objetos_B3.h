@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include "vertex.h"
 #include <stdlib.h>
+#include "algorithm"
 #include "file_ply_stl.hpp"
 
 using namespace std;
