@@ -277,54 +277,133 @@ _rotacion::_rotacion()
 }
 
 
-void _rotacion::parametros(vector<_vertex3f> perfil, int num, int tapa)
+void _rotacion::parametros(vector<_vertex3f> perfil, int num, int tipo)
 {
 int i,j;
 _vertex3f vertice_aux;
 _vertex3i cara_aux;
-int num_aux;
+int eje=0;
 
-// tratamiento de los vértice
+int num_aux;
+vector<_vertex3f>aux;
+if(perfil[0].y>perfil[1].y){
+	reverse(perfil.begin(),perfil.end());
+}
+/*for(int i =0;i<perfil.size();i++){
+	cout << "b";
+	cout << perfil[i].y << endl;
+}*/
+
+// tratamiento de los vértices
 
 num_aux=perfil.size();
 vertices.resize(num_aux*num);
-for (j=0;j<num;j++)
-  {for (i=0;i<num_aux;i++)
-     {
-      vertice_aux.x=perfil[i].x*cos(2.0*M_PI*j/(1.0*num))+
-                    perfil[i].z*sin(2.0*M_PI*j/(1.0*num));
-      vertice_aux.z=-perfil[i].x*sin(2.0*M_PI*j/(1.0*num))+
-                    perfil[i].z*cos(2.0*M_PI*j/(1.0*num));
-      vertice_aux.y=perfil[i].y;
-      vertices[i+j*num_aux]=vertice_aux;
-     }
-  }
+//respecto al eje y
+if(eje==0){
+	for (j=0;j<num;j++)
+	  {for (i=0;i<num_aux;i++)
+	     {
+	      vertice_aux.x=perfil[i].x*cos(2.0*M_PI*j/(1.0*num))+
+	                    perfil[i].z*sin(2.0*M_PI*j/(1.0*num));
+	      vertice_aux.z=-perfil[i].x*sin(2.0*M_PI*j/(1.0*num))+
+	                    perfil[i].z*cos(2.0*M_PI*j/(1.0*num));
+	      vertice_aux.y=perfil[i].y;
+	      vertices[i+j*num_aux]=vertice_aux;
+	     }
+	  }
+}
+if(eje==1){
+	//respecto al eje z
+    for (j=0;j<num;j++)
+      {for (i=0;i<num_aux;i++)
+         {
+          vertice_aux.x=perfil[i].x*cos(2.0*M_PI*j/(1.0*num))-
+                        perfil[i].y*sin(2.0*M_PI*j/(1.0*num));
+          vertice_aux.y=perfil[i].x*sin(2.0*M_PI*j/(1.0*num))+
+                        perfil[i].y*cos(2.0*M_PI*j/(1.0*num));
+          vertice_aux.z=perfil[i].z;
+          vertices[i+j*num_aux]=vertice_aux;
+         }
+      }
+}
+if(eje==2){
+	//respecto al eje x
+
+	for (j=0;j<num;j++)
+	  {for (i=0;i<num_aux;i++)
+	     {
+	      vertice_aux.y=perfil[i].y*cos(2.0*M_PI*j/(1.0*num))-perfil[i].z*sin(2.0*M_PI*j/(1.0*num));
+	      vertice_aux.z=perfil[i].y*sin(2.0*M_PI*j/(1.0*num))+perfil[i].z*cos(2.0*M_PI*j/(1.0*num));
+	      vertice_aux.x=perfil[i].x;
+	      vertices[i+j*num_aux]=vertice_aux;
+	     }
+	  }
+}
 
 // tratamiento de las caras
+for(j=0;j<num;j++){
+	for (i=0;i<num_aux-1;i++) {
+		cara_aux._0=i+((j+1)%num)*num_aux;
+		cara_aux._1=i+1+((j+1)%num)*num_aux;
+		cara_aux._2=i+1+j*num_aux;
+		cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
+		caras.push_back(cara_aux);
 
-for (j=0;j<num;j++)
-  {for (i=0;i<num_aux-1;i++)
-     {cara_aux._0=i+((j+1)%num)*num_aux;
-      cara_aux._1=i+1+((j+1)%num)*num_aux;
-      cara_aux._2=i+1+j*num_aux;
-      caras.push_back(cara_aux);
-
-      cara_aux._0=i+1+j*num_aux;
-      cara_aux._1=i+j*num_aux;
-      cara_aux._2=i+((j+1)%num)*num_aux;
-      caras.push_back(cara_aux);
-     }
-  }
+		cara_aux._0=i+1+j*num_aux;
+		cara_aux._1=i+j*num_aux;
+		cara_aux._2=i+((j+1)%num)*num_aux;
+		cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
+		caras.push_back(cara_aux);
+	}
+}
 
  // tapa inferior
-if (fabs(perfil[0].x)>0.0 && tapa==1)
-  {
-  }
+	if ((tipo==0 && eje==0) || (tipo==1 && eje==0)) vertice_aux.x=0;
+	if ((tipo==0 && eje==1) || (tipo==1 && eje==1) || (tipo==0 && eje==2) || (tipo==1 && eje==2)) vertice_aux.x=perfil[0].x;
+
+	if (tipo==0 && eje==0  )  vertice_aux.y=perfil[0].y;
+	if (tipo==0 && eje==1 || tipo==0 && eje==2 ) vertice_aux.y=0;
+	if (tipo==1 && eje==0) vertice_aux.y=-sqrt(perfil[0].x*perfil[0].x+perfil[0].y*perfil[0].y);
+	if (tipo==1 && eje==1) vertice_aux.y=-sqrt(perfil[0].x*perfil[0].x);
+    if (tipo==1 && eje==2) vertice_aux.y=-sqrt(perfil[0].x*perfil[0].x+perfil[0].z*perfil[0].z);
+
+	if((tipo==0 && eje==0) || (tipo==1 && eje==0) || (tipo==0 && eje==1) ||  (tipo==1 && eje==1) ) vertice_aux.z=perfil[0].z;
+	if( (tipo==0 && eje==2) ||  (tipo==1 && eje==2)) vertice_aux.z=0;
+
+	vertices.push_back(vertice_aux);
+
+	  for(i=0;i<num;i++){
+		  cara_aux._0=num_aux*num;
+		  cara_aux._1=((i+1)%num)*num_aux;
+		  cara_aux._2=i*num_aux;
+		  //cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
+		  caras.push_back(cara_aux);
+	  }
+
 
  // tapa superior
- if (fabs(perfil[num_aux-1].x)>0.0 && tapa==1)
-  {
-  }
+
+
+          if ((tipo==0 && eje==0) || (tipo==1 && eje==0)) vertice_aux.x=0;
+		  if (tipo==0 && eje==1 ||(tipo==0 && eje==2) ||  (tipo==1 && eje==2) ) vertice_aux.x=perfil[num_aux-1].x;
+
+		  if (tipo==0&&eje==0) vertice_aux.y=perfil[num_aux-1].y;
+		  if (tipo==0&&eje==1) vertice_aux.y=0;
+    	  if (tipo==1 && eje==0) vertice_aux.y=sqrt(perfil[0].x*perfil[0].x+perfil[0].y*perfil[0].y);
+		  if ((tipo==1 && eje==1) ) vertice_aux.y=sqrt(perfil[0].x*perfil[0].x);
+		  if( (tipo==0 && eje==2) ||  (tipo==1 && eje==2)) vertice_aux.z=perfil[num_aux-1].y;
+
+		  if ((tipo==0 && eje==0) || (tipo==1 && eje==0) || (tipo==0 && eje==1) ||  (tipo==1 && eje==1) ) vertice_aux.z=perfil[num_aux-1].z;
+		  if ( (tipo==0 && eje==2) || (tipo==1 && eje==2)) vertice_aux.z=0;
+
+		  vertices.push_back(vertice_aux);
+
+		  for(i=0;i<num;i++){
+	 		  cara_aux._0=num_aux*num+1	;
+	 		  cara_aux._1=((i+1))*num_aux-1;
+	 		  cara_aux._2=((i+1)%num)*num_aux+num_aux-1;
+	 		  caras.push_back(cara_aux);
+	 	}
 }
 //*************************************************************************
 // clase ESFERA
