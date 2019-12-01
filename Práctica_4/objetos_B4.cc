@@ -123,7 +123,7 @@ void _triangulos3D::calcular_normales_caras(){
     _vertex3f a2=vertices[caras[i]._2]-vertices[caras[i]._0];
     _vertex3f n=a1.cross_product(a2);
 
-    
+
     //modulo
     float m=sqrt(n.x*n.x+n.y*n.y+n.z*n.z);
     //normalizacion
@@ -131,7 +131,7 @@ void _triangulos3D::calcular_normales_caras(){
   }
 
   b_normales_caras=true;
-  
+
 }
 
 void _triangulos3D::calcular_normales_vertices(){
@@ -468,13 +468,13 @@ for(j=0;j<num;j++){
 		cara_aux._0=i+((j+1)%num)*num_aux;
 		cara_aux._1=i+1+((j+1)%num)*num_aux;
 		cara_aux._2=i+1+j*num_aux;
-		cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
+		//cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
 		caras.push_back(cara_aux);
 
 		cara_aux._0=i+1+j*num_aux;
 		cara_aux._1=i+j*num_aux;
 		cara_aux._2=i+((j+1)%num)*num_aux;
-		cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
+		//cout << "Cara 0: " << cara_aux._0 << " Cara 1: "<<  cara_aux._1 << " Cara 2: " << cara_aux._2 << endl;
 		caras.push_back(cara_aux);
 	}
 }
@@ -888,7 +888,7 @@ void _grua::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, f
 	glScalef(0.03,-abs(1.3*moverCuerda)+1,0.05);
     glTranslatef(0,moverCuerda+(moverCuerda*(0.4*moverCuerda)),0);
 	cuerda.draw(SOLID,r1,g1,b1,r2,g2,b2,grosor);
-    
+
 	//glPopMatrix();
 	glPushMatrix();
 	glTranslatef(0.32,0.62,0);
