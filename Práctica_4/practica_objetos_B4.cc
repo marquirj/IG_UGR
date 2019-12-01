@@ -45,6 +45,7 @@ float carroMax=0.9;
 float carroMin=0.0;
 float control =false;
 int giro=0;
+bool activaLuzMov=false;
 // _objeto_ply *ply1;
 
 
@@ -110,7 +111,31 @@ void luces(float alfa){
   glRotatef(alfa, 0, 1, 0);
   glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
   glPopMatrix();
-  
+
+}
+
+void luces_mov(float alfa){
+
+  GLfloat light1_position[4]={20,20,0,0};
+  GLfloat light1_ambient[4]={0.1,0.0,0.0,1};
+  GLfloat light1_intensity[4]={0.9,0.9,0.9,1};
+
+  glEnable(GL_LIGHT0);
+
+  glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+  glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+  glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_intensity);
+  glLightfv(GL_LIGHT1, GL_SPECULAR, light1_intensity);
+  glEnable(GL_LIGHT1);
+
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+  glLoadIdentity();
+  glRotatef(alfa, 0, 1, 0);
+  glTranslatef(5,0,0);
+  glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+  glPopMatrix();
+
 }
 //**************************************************************************
 // Funcion que dibuja los ejes utilizando la primitiva grafica de lineas
@@ -153,7 +178,7 @@ switch (t_objeto){
         case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
         case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
         case ARTICULADO: tanque.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
-		
+
 	}
 
 }
@@ -168,7 +193,13 @@ void draw(void)
 
 clean_window();
 change_observer();
-luces(60);
+if(activaLuzMov) {
+    luces_mov(60);
+    //cout << "entra  luz mov ";
+}else{
+        luces(60);
+        //cout << "entra  luz  ";
+}
 draw_axis();
 draw_objects();
 glutSwapBuffers();
@@ -215,6 +246,9 @@ switch (toupper(Tecla1)){
 	case '4':modo=SOLID_CHESS;break;
     case '5':modo=SOLID_ILLUMINATED_FLAT;break;
     case '6':modo=SOLID_ILLUMINATED_GOURAUD;break;
+    case '7':activaLuzMov=false;break;
+    case '8':activaLuzMov=true;break;
+
         case 'P':t_objeto=PIRAMIDE;break;
         case 'C':t_objeto=CUBO;break;
         case 'O':t_objeto=OBJETO_PLY;break;
@@ -224,7 +258,7 @@ switch (toupper(Tecla1)){
 		case 'G':t_objeto=GRUA;break;
 		case 'Z':valor=0;break;
         case 'X':valor=1;break;
-                
+
 
 	}
 glutPostRedisplay();
@@ -314,8 +348,8 @@ void movimiento(){
             }
 
         //}
-    
-   
+
+
     //glutPostRedisplay();
   }else{
         grua.giro_centro+=0.5;
