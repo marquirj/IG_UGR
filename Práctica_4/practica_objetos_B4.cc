@@ -46,6 +46,7 @@ float carroMin=0.0;
 float control =false;
 int giro=0;
 bool activaLuzMov=false;
+float al=0.0;
 // _objeto_ply *ply1;
 
 
@@ -114,7 +115,7 @@ void luces(float alfa){
 
 }
 
-void luces_mov(float alfa){
+void luces_mov(/*float alfa*/){
 
   GLfloat light1_position[4]={20,20,0,0};
   GLfloat light1_ambient[4]={0.1,0.0,0.0,1};
@@ -131,7 +132,7 @@ void luces_mov(float alfa){
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
   glLoadIdentity();
-  glRotatef(alfa, 0, 1, 0);
+  glRotatef(al, 0, 1, 0);
   glTranslatef(5,0,0);
   glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
   glPopMatrix();
@@ -194,7 +195,7 @@ void draw(void)
 clean_window();
 change_observer();
 if(activaLuzMov) {
-    luces_mov(60);
+    luces_mov();
     //cout << "entra  luz mov ";
 }else{
         luces(60);
@@ -248,6 +249,7 @@ switch (toupper(Tecla1)){
     case '6':modo=SOLID_ILLUMINATED_GOURAUD;break;
     case '7':activaLuzMov=false;break;
     case '8':activaLuzMov=true;break;
+    case '9':al+=3;break;
 
         case 'P':t_objeto=PIRAMIDE;break;
         case 'C':t_objeto=CUBO;break;
