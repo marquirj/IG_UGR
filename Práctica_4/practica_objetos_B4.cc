@@ -268,7 +268,7 @@ switch (toupper(Tecla1)){
         case 'A':t_objeto=ARTICULADO;break;
         case 'E':t_objeto=ESFERA;break;
 		case 'G':t_objeto=GRUA;break;
-		case 'Z':valor=0;break;
+		case 'Z':valor=0;modo=SOLID_ILLUMINATED_GOURAUD;break;
         case 'X':valor=1;break;
         case 'T':t_objeto=CILINDRO; break;
 		case 'N':t_objeto=CONO; break;
@@ -348,6 +348,8 @@ glutPostRedisplay();
 void movimiento(){
   if(valor!=0){
         //if(cmp!=0){
+            activaLuzMov=false;
+            al=0.0;
             grua.giro_centro+=0.0;
              grua.giroMaza+=0.0;
             if (grua.moverCarro>grua.moverCarroMin && giro==0){
@@ -369,6 +371,8 @@ void movimiento(){
 
     //glutPostRedisplay();
   }else{
+        activaLuzMov=true;
+        al+=1;
         grua.giro_centro+=0.5;
              grua.giroMaza+=0.1;
             if (grua.moverCarro>grua.moverCarroMin && giro==0){
