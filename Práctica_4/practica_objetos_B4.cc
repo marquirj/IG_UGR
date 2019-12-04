@@ -51,6 +51,7 @@ float carroMin=0.0;
 float control =false;
 int giro=0;
 bool activaLuzMov=false;
+bool otro=false;
 float al=0.0;
 // _objeto_ply *ply1;
 
@@ -204,7 +205,7 @@ void draw(void)
 
 clean_window();
 change_observer();
-if(activaLuzMov) {
+if(activaLuzMov||otro) {
     luces_mov();
     //cout << "entra  luz mov ";
 }else{
@@ -257,8 +258,8 @@ switch (toupper(Tecla1)){
 	case '4':modo=SOLID_CHESS;break;
     case '5':modo=SOLID_ILLUMINATED_FLAT;break;
     case '6':modo=SOLID_ILLUMINATED_GOURAUD;break;
-    case '7':activaLuzMov=false;break;
-    case '8':activaLuzMov=true;break;
+    case '7':activaLuzMov=false;otro=false;break;
+    case '8':activaLuzMov=true;otro=true;break;
     case '9':al+=3;break;
 
         case 'P':t_objeto=PIRAMIDE;break;
@@ -349,7 +350,7 @@ void movimiento(){
   if(valor!=0){
         //if(cmp!=0){
             activaLuzMov=false;
-            al=0.0;
+            //al=0.0;
             grua.giro_centro+=0.0;
              grua.giroMaza+=0.0;
             if (grua.moverCarro>grua.moverCarroMin && giro==0){
