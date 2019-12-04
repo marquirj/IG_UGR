@@ -20,8 +20,9 @@
 - O -> Muestra la figura de Beethoven.
 - P -> Muestra la pirámide.
 - R -> Objeto por rotación, figura de un peón.
+- T -> Muestra el cilindro.
 - V -> Figura creada a partir del perfil en el archivo .ply.
-- Z -> Figura respecto al eje x.
+- W -> Figura respecto al eje x.
     
 ## Teclas para activar y desactivar la animación.
 
