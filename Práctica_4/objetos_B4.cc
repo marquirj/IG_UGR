@@ -333,6 +333,102 @@ caras[4]._0=3;caras[4]._1=1;caras[4]._2=0;
 caras[5]._0=3;caras[5]._1=2;caras[5]._2=1;
 }
 
+
+
+
+//*************************************************************************
+// clase CILINDRO
+//*************************************************************************
+_cilindro:: _cilindro(float altura, float radio, int num1){
+	trio.x=radio; trio.y=-altura; trio.z=0;
+	perfil.push_back(trio);
+	trio.x=radio; trio.y=altura; trio.z=0;
+	perfil.push_back(trio);
+	num=num1;
+	_rotacion::parametros(perfil,num,0,0);
+
+
+}
+//*************************************************************************
+// clase CONO
+//*************************************************************************
+_cono:: _cono(float altura, float radio, int num1){
+	num=num1;
+	conoCompleto(altura, radio,num);
+}
+
+void _cono::conoCompleto(float altura, float radio, int num){
+	int i,j;
+	_vertex3f vertice_aux;
+	_vertex3i cara_aux;
+
+
+	// tratamiento de los vértice
+
+	vertices.resize(num);
+	for (j=0;j<num;j++)
+	     {
+	      vertice_aux.x=radio*cos(2.0*M_PI*j/(1.0*num));
+	      vertice_aux.z=-altura	*sin(2.0*M_PI*j/(1.0*num));
+	      vertice_aux.y=-altura/2	;
+	      vertices[j]=vertice_aux;
+	     }
+
+	 // tapa inferior
+
+		  vertice_aux.x=0.0;
+		  vertice_aux.y=-altura/2;
+		  vertice_aux.z=0.0;
+
+		  vertices.push_back(vertice_aux);
+
+		  for(i=0;i<num;i++){
+			  cara_aux._0=num;
+			  cara_aux._1=((i+1)%num);
+			  cara_aux._2=i;
+			  caras.push_back(cara_aux);
+		  }
+
+	 // tapa superior
+
+		  vertice_aux.x=0.0;
+    	  vertice_aux.y=radio;
+    	  vertice_aux.z=0.0;
+    	  vertices.push_back(vertice_aux);
+
+		  for(i=0;i<num;i++){
+	 		  cara_aux._0=num+1	;
+	 		  cara_aux._1=(i+1)%num;
+	 		  cara_aux._2=i;
+	 		  caras.push_back(cara_aux);
+	 	}
+
+}
+//*************************************************************************
+// clase BOTELLA
+//*************************************************************************
+_botella:: _botella( char *archivo, int num1){
+	int n_ver,n_car;
+	vector<float> ver_ply ;
+	vector<int>   car_ply ;
+	int j=0;
+	int i=0;
+	_file_ply::read(archivo, ver_ply, car_ply );
+	n_ver=ver_ply.size()/3;
+	vertices.resize(n_ver);
+	for (i=0;i<n_ver;i++){
+		//cout << "a";
+		vertices[i].x=ver_ply[j];
+		vertices[i].y=ver_ply[j+1];
+		vertices[i].z=ver_ply[j+2];
+		j+=3;
+	}
+	if(vertices[0].x==0) _rotacion::parametros(vertices,num1,0,1);
+	if(vertices[0].z==0) _rotacion::parametros(vertices,num1,0,0);
+	if(vertices[0].y==0) _rotacion::parametros(vertices,num1,0,2);
+}
+
+
 //*************************************************************************
 // clase objeto ply
 //*************************************************************************
@@ -399,12 +495,12 @@ _rotacion::_rotacion()
 }
 
 
-void _rotacion::parametros(vector<_vertex3f> perfil, int num, int tipo)
+void _rotacion::parametros(vector<_vertex3f> perfil, int num, int tipo,int eje)
 {
 int i,j;
 _vertex3f vertice_aux;
 _vertex3i cara_aux;
-int eje=0;
+//int eje=0;
 
 int num_aux;
 vector<_vertex3f>aux;
@@ -541,7 +637,7 @@ _esfera:: _esfera(float radio,float latitud, float longitud){
 		perfil.push_back(aux);
 	}
 
-    _rotacion::parametros(perfil,longitud,1);
+    _rotacion::parametros(perfil,longitud,1,0);
 
 }
 //************************************************************************
@@ -557,7 +653,7 @@ aux.x=0.107;aux.y=-0.5;aux.z=0.0;
 perfil.push_back(aux);
 aux.x=0.107;aux.y=0.5;aux.z=0.0;
 perfil.push_back(aux);
-rodamiento.parametros(perfil,12,1);
+rodamiento.parametros(perfil,12,1,0);
 altura=0.22;
 };
 
@@ -634,7 +730,7 @@ aux.x=0.04;aux.y=-0.4;aux.z=0.0;
 perfil.push_back(aux);
 aux.x=0.04;aux.y=0.4;aux.z=0.0;
 perfil.push_back(aux);
-tubo_abierto.parametros(perfil,12,0);
+tubo_abierto.parametros(perfil,12,0,0);
 };
 
 void _tubo::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor)
@@ -836,7 +932,7 @@ _maza::_maza(){
 		perfil.push_back(aux);
 	}
 
-    maza.parametros(perfil,10,1);
+    maza.parametros(perfil,10,1,0);
 };
 void _maza::draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor){
 	glPushMatrix();
