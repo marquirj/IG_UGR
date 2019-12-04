@@ -104,7 +104,7 @@ class _rotacion: public _triangulos3D
 {
 public:
        _rotacion();
-void  parametros(vector<_vertex3f> perfil1, int num1, int tapas);
+void  parametros(vector<_vertex3f> perfil1, int num1, int tapas,int eje);
 
 vector<_vertex3f> perfil;
 int num;
@@ -290,4 +290,34 @@ _carro carro;
 _cuerda cuerda;
 _maza maza;
 //_esfera esfera
+};
+
+//*************************************************************************
+// clase CILINDRO
+//*************************************************************************
+class _cilindro: public _rotacion {
+public:
+    _cilindro(float altura, float radio, int num);
+    _vertex3f trio;
+    int num;
+};
+//*************************************************************************
+// clase CONO
+//*************************************************************************
+class _cono: public _rotacion {
+public:
+	_vertex3f trio;
+    _cono(float altura, float radio, int num);
+    void conoCompleto(float altura, float radio, int num);
+	int num;
+};
+//*************************************************************************
+// clase BOTELLA
+//*************************************************************************
+class _botella: public _rotacion {
+public:
+	_vertex3f trio;
+    _botella(char *archivo, int num1);
+
+	int num;
 };
