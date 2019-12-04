@@ -32,7 +32,7 @@
 - F11 y F12 -> Mueven la cuerda.
 ## Teclas para ver la animación.
 
-- Z -> Empieza a funcionar la animación.
+- Z -> Empieza a funcionar la animación. Mueve la estructura horizontal, el carro y la maza, obliga el iluminado de Gouraud para la animación de la luz.
 - X -> Para la animación.
 ## Luces.
 
