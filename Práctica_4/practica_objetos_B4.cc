@@ -12,7 +12,7 @@
 using namespace std;
 
 // tipos
-typedef enum{CUBO, PIRAMIDE, OBJETO_PLY, ROTACION, ARTICULADO,GRUA, ESFERA} _tipo_objeto;
+typedef enum{CUBO, PIRAMIDE, OBJETO_PLY, ROTACION, ARTICULADO, GRUA, CILINDRO, CONO, ESFERA, BOTELLA, BOTELLAALREVES, EJEX} _tipo_objeto;
 _tipo_objeto t_objeto=CUBO;
 _modo   modo=POINTS;
 
@@ -36,7 +36,12 @@ _rotacion rotacion;
 _tanque tanque;
 _base base;
 _grua grua;
+_cilindro cilindro(1,1,20);
+_cono cono(1,1,20);
 _esfera esfera(1,10,10);
+_botella botella("ejez",20);
+_botella botellaAlreves("botellaalreves",20);
+_botella ejex("ejex",10);
 int valor=1;
 int cmp=0;
 bool activar=false;
@@ -176,9 +181,14 @@ switch (t_objeto){
     case ESFERA: esfera.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
 	case CUBO: cubo.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
 	case PIRAMIDE: piramide.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-        case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
-        case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-        case ARTICULADO: tanque.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
+    case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
+    case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+    case ARTICULADO: tanque.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
+    case CILINDRO: cilindro.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+	case CONO: cono.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+	case BOTELLA: botella.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+	case BOTELLAALREVES: botellaAlreves.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+	case EJEX: ejex.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
 
 	}
 
@@ -256,10 +266,15 @@ switch (toupper(Tecla1)){
         case 'O':t_objeto=OBJETO_PLY;break;
         case 'R':t_objeto=ROTACION;break;
         case 'A':t_objeto=ARTICULADO;break;
-       case 'E':t_objeto=ESFERA;break;
+        case 'E':t_objeto=ESFERA;break;
 		case 'G':t_objeto=GRUA;break;
 		case 'Z':valor=0;break;
         case 'X':valor=1;break;
+        case 'T':t_objeto=CILINDRO; break;
+		case 'N':t_objeto=CONO; break;
+		case 'B':t_objeto=BOTELLA; break;
+		case 'V':t_objeto=BOTELLAALREVES; break;
+		case 'W':t_objeto=EJEX; break;
 
 
 	}
@@ -447,7 +462,7 @@ aux.x=0.5;aux.y=1.2;aux.z=0.0;
 perfil2.push_back(aux);
 aux.x=0.3;aux.y=1.4;aux.z=0.0;
 perfil2.push_back(aux);
-rotacion.parametros(perfil2,6,0);
+rotacion.parametros(perfil2,6,0,0);
 
 
 // se llama a la inicialización de glut
