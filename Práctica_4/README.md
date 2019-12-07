@@ -14,12 +14,14 @@
 - A -> Objeto articulado, figura de un tanque.
 - B -> Figura respcecto al eje z.
 - C -> Muestra el cubo.
+- D -> Material plata.
 - E -> Muestra la esfera.
 - G -> Dibuja la grúa
 - N -> Muestra el cono.
 - O -> Muestra la figura de Beethoven.
 - P -> Muestra la pirámide.
 - R -> Objeto por rotación, figura de un peón.
+- S -> Material azul.
 - T -> Muestra el cilindro.
 - V -> Figura creada a partir del perfil en el archivo .ply.
 - W -> Figura respecto al eje x.
@@ -47,6 +49,6 @@
 
 - P2. He realizado todos los ejercicios de la práctica además de la rotación sobre los ejes.
 - P3. En esta práctica he realizado el cambio en solido y solido ajedrez. 
-
+- P4. En esta práctica he realiza el cambio de materiales con una tecla, S y D para cambiar de material.
 
   
