@@ -53,6 +53,7 @@ int giro=0;
 bool activaLuzMov=false;
 bool otro=false;
 float al=0.0;
+bool material=true;
 // _objeto_ply *ply1;
 
 
@@ -121,7 +122,7 @@ void luces(float alfa){
 
 }
 
-void luces_mov(/*float alfa*/){
+void luces_mov(){
 
   GLfloat light1_position[4]={20,20,0,0};
   GLfloat light1_ambient[4]={0.1,0.0,0.0,1};
@@ -178,18 +179,18 @@ void draw_objects()
 {
 
 switch (t_objeto){
-    case GRUA: grua.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
-    case ESFERA: esfera.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
-	case CUBO: cubo.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-	case PIRAMIDE: piramide.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-    case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2);break;
-    case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-    case ARTICULADO: tanque.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2);break;
-    case CILINDRO: cilindro.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-	case CONO: cono.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-	case BOTELLA: botella.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-	case BOTELLAALREVES: botellaAlreves.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
-	case EJEX: ejex.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2);break;
+    case GRUA: grua.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2,material);break;
+    case ESFERA: esfera.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2,material);break;
+	case CUBO: cubo.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+	case PIRAMIDE: piramide.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+    case OBJETO_PLY: ply.draw(modo,1.0,0.6,0.0,0.0,1.0,0.3,2,material);break;
+    case ROTACION: rotacion.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+    case ARTICULADO: tanque.draw(modo,0.5,0.7,0.2,0.3,0.6,0.3,2,material);break;
+    case CILINDRO: cilindro.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+	case CONO: cono.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+	case BOTELLA: botella.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+	case BOTELLAALREVES: botellaAlreves.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
+	case EJEX: ejex.draw(modo,1.0,0.0,0.0,0.0,1.0,0.0,2,material);break;
 
 	}
 
@@ -262,22 +263,23 @@ switch (toupper(Tecla1)){
     case '8':activaLuzMov=true;otro=true;break;
     case '9':al+=3;break;
 
-        case 'P':t_objeto=PIRAMIDE;break;
-        case 'C':t_objeto=CUBO;break;
-        case 'O':t_objeto=OBJETO_PLY;break;
-        case 'R':t_objeto=ROTACION;break;
-        case 'A':t_objeto=ARTICULADO;break;
-        case 'E':t_objeto=ESFERA;break;
-		case 'G':t_objeto=GRUA;break;
-		case 'Z':valor=0;modo=SOLID_ILLUMINATED_GOURAUD;break;
-        case 'X':valor=1;break;
-        case 'T':t_objeto=CILINDRO; break;
-		case 'N':t_objeto=CONO; break;
-		case 'B':t_objeto=BOTELLA; break;
-		case 'V':t_objeto=BOTELLAALREVES; break;
-		case 'W':t_objeto=EJEX; break;
-
-
+    case 'A':t_objeto=ARTICULADO;break;
+    case 'B':t_objeto=BOTELLA; break;
+    case 'C':t_objeto=CUBO;break;
+    case 'D':material=false;break;
+    case 'E':t_objeto=ESFERA;break;        
+    case 'G':t_objeto=GRUA;break;
+	case 'N':t_objeto=CONO; break;
+    case 'O':t_objeto=OBJETO_PLY;break;
+    case 'P':t_objeto=PIRAMIDE;break;
+    case 'R':t_objeto=ROTACION;break;    
+    case 'T':t_objeto=CILINDRO; break;
+    case 'S':material=true;break;
+    case 'V':t_objeto=BOTELLAALREVES; break;    
+    case 'W':t_objeto=EJEX; break;
+    case 'X':valor=1;break;
+    case 'Z':valor=0;modo=SOLID_ILLUMINATED_GOURAUD;break;
+         
 	}
 glutPostRedisplay();
 }
