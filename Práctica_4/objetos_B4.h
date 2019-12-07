@@ -41,9 +41,9 @@ public:
 void 	draw_aristas(float r, float g, float b, int grosor);
 void    draw_solido(float r, float g, float b);
 void 	draw_solido_ajedrez(float r1, float g1, float b1, float r2, float g2, float b2);
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
-void    draw_iluminacion_plana();
-void    draw_iluminacion_suave();
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
+void    draw_iluminacion_plana(bool material);
+void    draw_iluminacion_suave(bool material);
 
 vector<_vertex3i> caras;
 vector<_vertex3i> caras_par;
@@ -129,7 +129,7 @@ class _chasis: public _triangulos3D
 {
 public:
        _chasis();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 
 float altura;
 
@@ -146,7 +146,7 @@ class _torreta: public _triangulos3D
 {
 public:
        _torreta();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 
 float altura;
 float anchura;
@@ -171,7 +171,7 @@ class _tubo: public _triangulos3D
 {
 public:
        _tubo();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 
 protected:
 _rotacion tubo_abierto; // caña del cañón
@@ -183,7 +183,7 @@ class _tanque: public _triangulos3D
 {
 public:
        _tanque();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 
 float giro_tubo;
 float giro_torreta;
@@ -204,7 +204,7 @@ _tubo     tubo;
 class _base: public _triangulos3D{
 public:
 	_base();
-	void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+	void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 	float altura;
 protected:
 	_cubo base;
@@ -213,7 +213,7 @@ class _estructuraVertical: public _triangulos3D
 {
 public:
        _estructuraVertical();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 
 float altura;
 float anchura;
@@ -225,7 +225,7 @@ _cubo baseSuperior;
 class _estructuraHorizontal: public _triangulos3D{
 public:
 	_estructuraHorizontal();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 protected:
 	_cubo trozo;
 };
@@ -233,7 +233,7 @@ protected:
 class _contraPeso: public _triangulos3D{
 public:
 	_contraPeso();
-	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 protected:
 	_cubo contra;
 };
@@ -241,14 +241,14 @@ protected:
 class _carro: public _triangulos3D{
 public:
 	_carro();
-	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 protected:
 	_cubo carro;
 };
 class _cuerda: public _triangulos3D{
 public:
 	_cuerda();
-	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 protected:
 
 	_cubo cuerda;
@@ -258,7 +258,7 @@ protected:
 class _maza: public _triangulos3D{
 public:
 	_maza();
-	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+	void draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 protected:
 	_esfera maza;
 };
@@ -268,7 +268,7 @@ class _grua: public _triangulos3D
 {
 public:
        _grua();
-void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
+void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor, bool material);
 
 float giro_centro;
 float giro_b;
